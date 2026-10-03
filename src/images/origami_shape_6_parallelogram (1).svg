@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" fill="none" />
+  <g transform="translate(10, 0)">
+    <!-- Base parallelogram divided into triangles for origami effect -->
+    <!-- Top-left triangle -->
+    <polygon points="50,50 150,50 100,100" fill="#ff6600" opacity="0.9" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Bottom-right triangle -->
+    <polygon points="150,50 100,100 150,150" fill="#ff8533" opacity="0.75" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Bottom-left triangle -->
+    <polygon points="50,50 100,100 50,150" fill="#cc5200" opacity="0.85" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Bottom parallel triangle -->
+    <polygon points="100,100 50,150 150,150" fill="#ff944d" opacity="0.6" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  </g>
+</svg>
