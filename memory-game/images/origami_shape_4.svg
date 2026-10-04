@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <!-- Прозрачный фон для универсальности на темных подложках -->
+  <rect width="200" height="200" fill="none" />
+  <g stroke="#ffffff" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M 100 20 L 180 80 L 150 170 L 50 170 L 20 80 Z" fill="rgba(0, 230, 118, 0.6)" />
+    <path d="M 100 20 L 180 80 L 100 100 Z" fill="rgba(0, 230, 118, 0.9)" />
+    <path d="M 180 80 L 150 170 L 100 100 Z" fill="rgba(0, 230, 118, 0.4)" />
+    <path d="M 50 170 L 20 80 L 100 100 Z" fill="rgba(0, 230, 118, 0.8)" />
+    <path d="M 20 80 L 100 20 L 100 100 Z" fill="rgba(0, 230, 118, 0.3)" />
+  </g>
+</svg>

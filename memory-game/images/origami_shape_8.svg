@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" fill="none" />
+  <!-- Center at 100,100. Tips at (100,30), (170,100), (100,170), (30,100) -->
+  <!-- Top ray -->
+  <polygon points="100,30 100,100 70,70" fill="#ff0066" opacity="0.9" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  <polygon points="100,30 130,70 100,100" fill="#ff3385" opacity="0.75" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  <!-- Right ray -->
+  <polygon points="170,100 100,100 130,70" fill="#ff66a3" opacity="0.6" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  <polygon points="170,100 130,130 100,100" fill="#cc0052" opacity="0.85" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  <!-- Bottom ray -->
+  <polygon points="100,170 100,100 130,130" fill="#ff0066" opacity="0.9" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  <polygon points="100,170 70,130 100,100" fill="#ff80b3" opacity="0.5" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  <!-- Left ray -->
+  <polygon points="30,100 100,100 70,130" fill="#b3003b" opacity="0.95" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  <polygon points="30,100 70,70 100,100" fill="#ff4d94" opacity="0.7" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+</svg>
