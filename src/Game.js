@@ -1,17 +1,22 @@
-class Gamer {
+class Game {
+  static formatter = new Intl.DateTimeFormat("ru-RU", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
   /**
    * @param {Object} profile - Данные профиля игрока.
-   * @param {string} profile.name - Имя игрока.
    * @param {Date} profile.winDate - Дата победы.
-   * @param {string|number} profile.result - Результат игры.
    * @param {number} profile.points - Набранные очки.
    */
-  constructor({ name, winDate, result, points }) {
-    this.name = name;
+  constructor({ winDate, points }) {
     this.winDate = winDate;
     this.points = points;
-    this.result = result;
+  }
+
+  get fwinDate() {
+    return Game.formatter.format(this.winDate);
   }
 }
 
-export default Gamer;
+export default Game;

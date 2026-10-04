@@ -15,10 +15,10 @@ class ItemUI {
     this.value = value;
     this.attrs = attrs;
     this.events = events;
-    this.uiElement = this.createMyElement();
+    this.uiElement = this.createNewElement();
   }
 
-  createElement() {
+  createNewElement() {
     let element = document.createElement(this.tag);
 
     this.classNames.forEach((className) => {
@@ -37,7 +37,8 @@ class ItemUI {
 
     Object.entries(this.events).forEach(([eventName, handler]) => {
       if (typeof handler === "function") {
-        element.addEventListener(eventName, handler);
+        const boundHandler = handler.bind(this);
+        element.addEventListener(eventName, boundHandler);
       }
     });
 
