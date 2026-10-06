@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <!-- Фон для превью -->
+  <rect width="100%" height="100%" fill="none" />
+
+  <g transform="translate(50, 70)">
+    <!-- Сегмент 1 (Левое крыло) -->
+    <polygon points="0,260 75,60 150,260" fill="#2979FF" opacity="0.9" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Сегмент 2 (Центр верх) -->
+    <polygon points="75,60 225,60 150,260" fill="#2962FF" opacity="0.95" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Сегмент 3 (Центр низ) -->
+    <polygon points="150,260 225,60 225,260" fill="#448AFF" opacity="0.7" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Сегмент 4 (Правое крыло) -->
+    <polygon points="225,60 300,260 225,260" fill="#82B1FF" opacity="0.5" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.4"/>
+  </g>
+</svg>
