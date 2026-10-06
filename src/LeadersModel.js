@@ -1,7 +1,7 @@
 import DataClient from "./DataClient";
 import Game from "./Game";
 
-class LidersModel {
+class LeadersModel {
   constructor() {
     this.dataClient = new DataClient();
     this.init();
@@ -24,15 +24,15 @@ class LidersModel {
 
   init() {}
 
-  async getLiders() {
-    const data = await this.dataClient.getItem("liders");
+  async getLeaders() {
+    const data = await this.dataClient.getItem("leaders");
     /** @type { Game[]} */
-    const liders = data === null ? [] : data.map((item) => new Game(item));
-    const sortedLiders = liders.sort(
+    const leaders = data === null ? [] : data.map((item) => new Game(item));
+    const sortedLeaders = leaders.sort(
       (a, b) => a.points - b.points || b.winDate - a.winDate,
     );
     this.state.openmodal = {
-      data: sortedLiders.slice(0, Math.min(10, sortedLiders.length)),
+      data: sortedLeaders.slice(0, Math.min(10, sortedLeaders.length)),
     };
   }
 
@@ -41,4 +41,4 @@ class LidersModel {
   }
 }
 
-export default LidersModel;
+export default LeadersModel;

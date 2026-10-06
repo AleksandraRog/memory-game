@@ -1,40 +1,40 @@
 import GameModel from "./GameModel";
 import Game from "./Game";
 import ItemUI from "./ItemUI";
-import LidersModel from "./LidersModel";
+import LeadersModel from "./LeadersModel";
 import { delay } from "./utils";
 
 const root = document.querySelector("body");
 
-const COUNT_GAME_CARTS = 16;
+const COUNT_GAME_CARDS = 16;
 
 const $ = ItemUI.create;
 
-const createCloseCarts = (model) =>
-  Array.from({ length: COUNT_GAME_CARTS }, (_, i) => i + 1).map((ind) =>
+const createCloseCards = (model) =>
+  Array.from({ length: COUNT_GAME_CARDS }, (_, i) => i + 1).map((ind) =>
     $(
-      ".cart-container",
+      ".card-container",
       {
-        attrs: { id: `cart-${ind}` },
+        attrs: { id: `card-${ind}` },
         events: {
           click: (event) => {
-            revertCart(model, event);
+            revertCard(model, event);
           },
         },
       },
       [
         $(".img-wrapper", [
           $("img.figure-img", {
-            attrs: { src: "images/origami_shape_1.svg", alt: "" },
+            attrs: { src: "", alt: "" },
           }),
         ]),
       ],
     ),
   );
 
-const revertCart = (model, event) => {
+const revertCard = (model, event) => {
   const cardContainer = event.currentTarget;
-  model.openCart = cardContainer.id;
+  model.openCard = cardContainer.id;
   cardContainer.classList.toggle("is-open");
 };
 
@@ -48,28 +48,28 @@ const closeModalButton = () => $("button.close-modal-button", "Close");
 
 /**
  * Функция для обработки или отображения таблицы лидеров.
- * @param {Game[]} liders - Массив объектов класса Game.
+ * @param {Game[]} leaders - Массив объектов класса Game.
  * @returns {HTMLElement[]} Новый массив, полученный в результате маппинга.
  */
-const lidersTable = (liders) =>
-  liders.length === 0
+const leadersTable = (leaders) =>
+  leaders.length === 0
     ? $(".placeholder", "Not Winers")
-    : $("table.liders-table", [
-        $("thead.liders-table-head", [
+    : $("table.leaders-table", [
+        $("thead.leaders-table-head", [
           $("td.gamer-position", "N"),
           $("td.gamer-points", "Points"),
           $("td.gamer-win-date", "Date"),
         ]),
-        $("tbody", liderTableRows(liders)),
+        $("tbody", leaderTableRows(leaders)),
       ]);
 
 /**
  * Функция для обработки или отображения таблицы лидеров.
- * @param {Game[]} liders - Массив объектов класса Game.
+ * @param {Game[]} leaders - Массив объектов класса Game.
  * @returns {HTMLElement[]} Новый массив, полученный в результате маппинга.
  */
-const liderTableRows = (liders) =>
-  liders.map((game, i) =>
+const leaderTableRows = (leaders) =>
+  leaders.map((game, i) =>
     $("tr.gamer-table-row", [
       $("td.gamer-position", i + 1),
       $("td.gamer-points", game.points),
@@ -77,8 +77,8 @@ const liderTableRows = (liders) =>
     ]),
   );
 
-function onClickLidersButton(model, event) {
-  model.getLiders();
+function onClickLeadersButton(model, event) {
+  model.getLeaders();
 }
 
 const dialogEvents = {
@@ -96,18 +96,18 @@ const dialogEvents = {
 };
 
 async function onClickNewGameButton() {
-  root.querySelectorAll(".cart-container").forEach((cart) => {
-    cart.classList.remove("is-open");
+  root.querySelectorAll(".card-container").forEach((card) => {
+    card.classList.remove("is-open");
   });
   await delay(250);
   render();
 }
 
-const lidersModal = (liders) =>
-  $("dialog.liders-modal", { events: dialogEvents }, [
+const leadersModal = (leaders) =>
+  $("dialog.leaders-modal", { events: dialogEvents }, [
     $(".modal-container", [
-      $("h2.liders-table-title", "Liders"),
-      lidersTable(liders),
+      $("h2.leaders-table-title", "Leaders"),
+      leadersTable(leaders),
       closeModalButton(),
     ]),
   ]);
@@ -136,30 +136,30 @@ function gameReduser(actionType, payload) {
         openWinModal(payload.data);
       }
       break;
-    case "lockcarts":
-      root.querySelectorAll(".cart-container").forEach((cart) => {
-        if (payload.includes(Number(cart.id.replace(/[^\d]/g, "")))) {
-          cart.classList.add("lock-click");
+    case "lockcards":
+      root.querySelectorAll(".card-container").forEach((card) => {
+        if (payload.includes(Number(card.id.replace(/[^\d]/g, "")))) {
+          card.classList.add("lock-click");
         } else {
-          cart.classList.remove("lock-click");
+          card.classList.remove("lock-click");
         }
       });
       break;
-    case "winhit":
-      root.querySelector(".wins-count").textContent = `${payload} from 8 pair`;
+    case "hit":
+      root.querySelector(".wins-count").textContent = `${payload} of 8 pairs`;
       break;
-    case "closecart":
-      root.querySelectorAll(".cart-container").forEach((cart) => {
-        if (payload.includes(Number(cart.id.replace(/[^\d]/g, "")))) {
-          cart.classList.toggle("is-open");
+    case "closecard":
+      root.querySelectorAll(".card-container").forEach((card) => {
+        if (payload.includes(Number(card.id.replace(/[^\d]/g, "")))) {
+          card.classList.toggle("is-open");
         }
       });
       break;
-    case "hitcount":
-      root.querySelector(".hits-count").textContent = payload;
+    case "movescount":
+      root.querySelector(".moves-count").textContent = payload;
       break;
     case "addimg":
-      const cont = root.querySelector(`.cart-container#cart-${payload.key}`);
+      const cont = root.querySelector(`.card-container#card-${payload.key}`);
       const img = cont.querySelector(".figure-img");
       img.setAttribute("src", `images/origami_shape_${payload.value}.svg`);
     default:
@@ -167,16 +167,16 @@ function gameReduser(actionType, payload) {
   }
 }
 
-function lidersReduser(actionType, payload) {
+function leadersReduser(actionType, payload) {
   switch (actionType) {
     case "openmodal":
-      const modal = lidersModal(payload.data).uiElement;
+      const modal = leadersModal(payload.data).uiElement;
       if (modal instanceof HTMLDialogElement) {
         root.appendChild(modal);
         modal.showModal();
       }
       break;
-    //    case "openTwoGarts":
+    //    case "openTwoGards":
     //      break;
     //    case "hitwin":
     //      break;
@@ -187,16 +187,16 @@ function lidersReduser(actionType, payload) {
 
 async function render() {
   const gameModel = new GameModel();
-  const lidersModel = new LidersModel();
+  const leadersModel = new LeadersModel();
   gameModel.subscribe(gameReduser);
-  lidersModel.subscribe(lidersReduser);
+  leadersModel.subscribe(leadersReduser);
 
   const header = (model) =>
     $("header.header", [
       $(".container.header-container", [
-        $("button.header-button.liders-modal-button", {
-          text: "Liders",
-          events: { click: onClickLidersButton.bind(null, model) },
+        $("button.header-button.leaders-modal-button", {
+          text: "Leaders",
+          events: { click: onClickLeadersButton.bind(null, model) },
         }),
         newGameButton(),
       ]),
@@ -205,24 +205,27 @@ async function render() {
   const main = $("main", [
     $(".container", [
       $("h1.game-title", "Memory game"),
-      $(".cart-grid", createCloseCarts(gameModel)),
+      $(".card-grid", createCloseCards(gameModel)),
     ]),
   ]);
 
   const footer = $("footer.footer", [
     $(".container", [
-      $("h3.current-rezult-title", "Point ruzalt:"),
-      $(".scors", [
-        $(".hits", [$("span.hits-title", "Hits:"), $("span.hits-count", "0")]),
+      $("h3.current-result-title", "Current Score:"),
+      $(".score", [
+        $(".moves", [
+          $("span.moves-title", "Moves:"),
+          $("span.moves-count", "0"),
+        ]),
         $(".wins", [
           $("span.wins-title", "Wins:"),
-          $("span.wins-count", "0 from 8 pair"),
+          $("span.wins-count", "0 of 8 pairs"),
         ]),
       ]),
     ]),
   ]);
 
-  const bodyList = [header(lidersModel), main, footer].map(
+  const bodyList = [header(leadersModel), main, footer].map(
     (tag) => tag.uiElement,
   );
   root.replaceChildren(...bodyList);

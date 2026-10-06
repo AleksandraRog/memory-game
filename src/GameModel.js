@@ -5,18 +5,18 @@ import { delay } from "./utils";
 class GameModel {
   constructor() {
     this.dataClient = new DataClient();
-    this.shuffledCarts = [];
-    this._openCart = [];
-    this.lockedCarts = [];
-    this.hitCount = 0;
-    this.winHit = 0;
+    this.shuffledCards = [];
+    this._openCard = [];
+    this.lockedCards = [];
+    this.movesCount = 0;
+    this.hit = 0;
     this.init();
     const defaultState = {
       win: undefined,
-      lockcarts: [],
-      closecart: [],
-      hitcount: 0,
-      winhit: 0,
+      lockcards: [],
+      closecard: [],
+      movescount: 0,
+      hit: 0,
       addimg: undefined,
     };
 
@@ -35,11 +35,11 @@ class GameModel {
   }
 
   init() {
-    this.shuffleCarts();
+    this.shuffleCards();
   }
 
-  shuffleCarts() {
-    this.shuffledCarts = [];
+  shuffleCards() {
+    this.shuffledCards = [];
     let startArray = Array.from({ length: 16 }, (_, i) => (i % 8) + 1);
     let m = startArray.length,
       t,
@@ -51,75 +51,75 @@ class GameModel {
       startArray[i] = t;
     }
 
-    this.shuffledCarts = startArray;
-    console.log(this.shuffledCarts);
+    this.shuffledCards = startArray;
+    console.log(this.shuffledCards);
   }
 
-  set openCart(idCart) {
-    if (typeof idCart !== "string") return;
-    const indexCart = Number(idCart.replace(/[^\d]/g, ""));
-    this._openCart.push(indexCart);
+  set openCard(idCard) {
+    if (typeof idCard !== "string") return;
+    const indexCard = Number(idCard.replace(/[^\d]/g, ""));
+    this._openCard.push(indexCard);
     this.state.addimg = {
-      key: indexCart,
-      value: this.shuffledCarts[indexCart - 1],
+      key: indexCard,
+      value: this.shuffledCards[indexCard - 1],
     };
-    this.lockCarts();
-    // this.state.addimg = { idCart: this.shuffledCarts[indexCart - 1] };
-    if (this._openCart.length === 2) {
-      this.checkWinHit();
+    this.lockCards();
+    // this.state.addimg = { idCard: this.shuffledCards[indexCard - 1] };
+    if (this._openCard.length === 2) {
+      this.checkHit();
     }
   }
 
-  lockCarts() {
-    this.state.lockcarts = (() => {
-      switch (this._openCart.length) {
+  lockCards() {
+    this.state.lockcards = (() => {
+      switch (this._openCard.length) {
         case 1:
-          return this.lockedCarts.concat(this._openCart);
+          return this.lockedCards.concat(this._openCard);
         case 2:
           return Array.from({ length: 16 }, (_, i) => i + 1);
         default:
-          return this.lockedCarts;
+          return this.lockedCards;
       }
     })();
   }
 
   async startTimer() {
     await delay(1200);
-    this.state.closecart = this._openCart;
+    this.state.closecard = this._openCard;
     await delay(30);
-    this._openCart = [];
-    this.lockCarts();
+    this._openCard = [];
+    this.lockCards();
   }
 
-  async checkWinHit() {
-    if (this._openCart.length !== 2) return;
-    this.hitCount += 1;
-    this.state.hitcount = this.hitCount;
-    const winHit =
-      this.shuffledCarts.at(this._openCart[0] - 1) ===
-      this.shuffledCarts.at(this._openCart[1] - 1);
-    if (winHit) {
-      this.winHit += 1;
-      this.state.winhit = this.winHit;
-      this.lockedCarts = this.lockedCarts.concat(this._openCart);
-      this._openCart = [];
-      this.lockCarts();
-      if (this.winHit === 8) {
-        await this.saveRezult();
-        this.state.win = { data: this.hitCount };
+  async checkHit() {
+    if (this._openCard.length !== 2) return;
+    this.movesCount += 1;
+    this.state.movescount = this.movesCount;
+    const hit =
+      this.shuffledCards.at(this._openCard[0] - 1) ===
+      this.shuffledCards.at(this._openCard[1] - 1);
+    if (hit) {
+      this.hit += 1;
+      this.state.hit = this.hit;
+      this.lockedCards = this.lockedCards.concat(this._openCard);
+      this._openCard = [];
+      this.lockCards();
+      if (this.hit === 8) {
+        await this.saveResult();
+        this.state.win = { data: this.movesCount };
       }
     } else {
       this.startTimer();
     }
   }
 
-  async saveRezult() {
-    const data = await this.dataClient.getItem("liders");
+  async saveResult() {
+    const data = await this.dataClient.getItem("leaders");
     /** @type { Game[]} */
-    const liders = data === null ? [] : data.map((item) => new Game(item));
-    liders.push(new Game({ points: this.hitCount, winDate: Date.now() }));
+    const leaders = data === null ? [] : data.map((item) => new Game(item));
+    leaders.push(new Game({ points: this.movesCount, winDate: Date.now() }));
     try {
-      this.dataClient.setItem("liders", liders);
+      this.dataClient.setItem("leaders", leaders);
     } catch {
       console.log("no write");
     }

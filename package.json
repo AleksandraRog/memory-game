@@ -9,6 +9,7 @@
     "deploy": "gh-pages -d dist -e memory-game"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "rss-scripts": "^0.2.4",
     "webpack-dev-server": "^6.0.0"
   },
