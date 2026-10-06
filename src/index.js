@@ -22,19 +22,14 @@ const createCloseCards = (model) =>
           },
         },
       },
-      [
-        $(".img-wrapper", [
-          $("img.figure-img", {
-            attrs: { src: "", alt: "" },
-          }),
-        ]),
-      ],
+      [$(".img-wrapper")],
     ),
   );
 
-const revertCard = (model, event) => {
+const revertCard = async (model, event) => {
   const cardContainer = event.currentTarget;
   model.openCard = cardContainer.id;
+  delay(15);
   cardContainer.classList.toggle("is-open");
 };
 
@@ -152,6 +147,8 @@ function gameReduser(actionType, payload) {
       root.querySelectorAll(".card-container").forEach((card) => {
         if (payload.includes(Number(card.id.replace(/[^\d]/g, "")))) {
           card.classList.toggle("is-open");
+          const img = card.querySelector(".figure-img");
+          img.remove();
         }
       });
       break;
@@ -160,8 +157,11 @@ function gameReduser(actionType, payload) {
       break;
     case "addimg":
       const cont = root.querySelector(`.card-container#card-${payload.key}`);
-      const img = cont.querySelector(".figure-img");
-      img.setAttribute("src", `images/origami_shape_${payload.value}.svg`);
+      const wrapper = cont.querySelector(".img-wrapper");
+      const img = $("img.figure-img", {
+        attrs: { src: `images/origami_shape_${payload.value}.svg`, alt: "" },
+      });
+      wrapper.appendChild(img.uiElement);
     default:
       break;
   }
