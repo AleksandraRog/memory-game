@@ -32,6 +32,12 @@ img {
   justify-content: end;
 }
 
+.game-title,
+.win-title,
+.leaders-table-title {
+  margin: 0 auto;
+}
+
 .card-grid {
 
   display: grid;
@@ -46,7 +52,6 @@ img {
 }
 
 .card-container {
-  /*width: 100px;*/
   min-height: 0;
   aspect-ratio: 3 / 4 ;
   border-radius: 10px;
@@ -101,7 +106,20 @@ img {
   border: 2px beige solid;
 }
 
-.leaders-table {
-  gap: 10px;
-  color: inherit;
+.win-modal,
+.leaders-modal {
+ color: inherit;
+}
+
+
+.buttons-block {
+  display: flex;
+  gap: 20px;
+  align-self: end;
+  margin-top: auto;
+}
+
+.leaders-modal .close-modal-button {
+  align-self: end;
+  margin-top: auto;
 }

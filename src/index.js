@@ -39,7 +39,7 @@ const revertCard = (model, event) => {
 };
 
 const newGameButton = () =>
-  $("button.header-button.new-game-button", {
+  $("button.new-game-button", {
     text: "New game",
     events: { click: onClickNewGameButton },
   });
@@ -114,8 +114,8 @@ const leadersModal = (leaders) =>
 
 const winModal = (score) =>
   $("dialog.win-modal", { events: dialogEvents }, [
-    $(".modal-conainer", { events: dialogEvents }, [
-      $("h2.win-title", "Congradulations!"),
+    $(".modal-container", { events: dialogEvents }, [
+      $("h2.win-title", "Congratulations!"),
       $(".win-score", `Your score ${score} points`),
       $(".buttons-block", [newGameButton(), closeModalButton()]),
     ]),
@@ -176,10 +176,6 @@ function leadersReduser(actionType, payload) {
         modal.showModal();
       }
       break;
-    //    case "openTwoGards":
-    //      break;
-    //    case "hitwin":
-    //      break;
     default:
       break;
   }

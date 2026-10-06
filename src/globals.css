@@ -67,14 +67,17 @@ img {
 
 dialog {
   width: 50%;
+  height: max-content;
+  flex-shrink: 0;
   padding: 0;
   border: none;
+  border-radius: 20px;
   background-color: inherit;
 }
 
 dialog::backdrop {
-    background-color: rgba(64, 63, 61, 0.8);
-    backdrop-filter: blur(5px);
+    background-color: rgba(36, 38, 62, 0.8);
+    backdrop-filter: blur(2px);
 }
 /* @FONTWARNING[{"type": "restricted", "family": "Inter-SemiBold", "weight": "400", "style": "normal", "allowsCrossOrigin": false}] */
 
