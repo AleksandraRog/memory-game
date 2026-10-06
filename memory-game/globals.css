@@ -67,8 +67,11 @@ img {
 
 dialog {
   width: 50%;
+  height: max-content;
+  flex-shrink: 0;
   padding: 0;
   border: none;
+  border-radius: 20px;
   background-color: inherit;
 }
 
