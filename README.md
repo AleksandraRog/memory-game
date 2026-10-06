@@ -8,7 +8,7 @@ The goal is to find all matching pairs of cards using as few attempts as possibl
 
 The application is deployed on GitHub Pages:
 
-**[Play Memory Game](https://github.com/AleksandraRog/memory-game/memory-game/)**
+**[Play Memory Game](https://aleksandrarog.github.io/memory-game/memory-game/)**
 
 ## Features
 

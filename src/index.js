@@ -29,7 +29,7 @@ const createCloseCards = (model) =>
 const revertCard = async (model, event) => {
   const cardContainer = event.currentTarget;
   model.openCard = cardContainer.id;
-  delay(15);
+  await delay(30);
   cardContainer.classList.toggle("is-open");
 };
 
