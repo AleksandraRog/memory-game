@@ -26,11 +26,9 @@ const createCloseCards = (model) =>
     ),
   );
 
-const revertCard = async (model, event) => {
+const revertCard = (model, event) => {
   const cardContainer = event.currentTarget;
   model.openCard = cardContainer.id;
-  await delay(30);
-  cardContainer.classList.toggle("is-open");
 };
 
 const newGameButton = () =>
@@ -162,6 +160,12 @@ function gameReduser(actionType, payload) {
         attrs: { src: `images/origami_shape_${payload.value}.svg`, alt: "" },
       });
       wrapper.appendChild(img.uiElement);
+      new Promise((resolve) => {
+        img.uiElement.addEventListener("load", resolve, { once: true });
+      }).then(() => {
+        cont.classList.toggle("is-open");
+      });
+      break;
     default:
       break;
   }
