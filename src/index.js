@@ -144,9 +144,11 @@ function gameReduser(actionType, payload) {
     case "closecard":
       root.querySelectorAll(".card-container").forEach((card) => {
         if (payload.includes(Number(card.id.replace(/[^\d]/g, "")))) {
-          card.classList.toggle("is-open");
           const img = card.querySelector(".figure-img");
-          img.remove();
+          if (img) {
+            card.classList.toggle("is-open");
+            img.remove();
+          }
         }
       });
       break;
